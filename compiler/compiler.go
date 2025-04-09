@@ -164,6 +164,11 @@ func (c *Compiler) Compile(node ast.Node) error {
 		integer := &object.Integer{Value: node.Value}
 		c.emit(code.OpConstant, c.addConstant(integer))
 
+	case *ast.LetStatement:
+		err := c.Compile(node.Value)
+		if err != nil {
+			return err
+		}
 	}
 	return nil
 }
